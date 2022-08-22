@@ -1,0 +1,12 @@
+#!/bin/sh
+#
+# {{ ansible_managed }}
+#
+docker run --detach \
+        --publish 8080:8080 \
+        --publish 8443:8443 \
+        --publish 9443:9443 \
+        --restart always \
+        --mount type=bind,src={{ sspr_app_home }}/tomcat/sspr_applicationpath,dst={{ sspr_applicationpath }} \
+	--name {{ sspr_applet_container_name }} \
+	{{ sspr_applet_container_image }}

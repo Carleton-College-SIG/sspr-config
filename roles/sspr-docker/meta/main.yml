@@ -1,0 +1,5 @@
+---
+# file: roles/tomcat/meta/main.yml
+dependencies:
+  - { role: docker }
+

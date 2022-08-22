@@ -1,0 +1,16 @@
+# Ansible inventory for grouper
+
+all:
+  children:
+    cc_hosts:
+      hosts:
+        password-dev.its.carleton.edu:
+        # password-db.its.carleton.edu:
+
+    sspr_hosts:
+      hosts:
+        password-dev.its.carleton.edu:
+
+    db_hosts:
+      hosts:
+        # password-db.its.carleton.edu:

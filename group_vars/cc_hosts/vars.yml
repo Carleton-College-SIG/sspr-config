@@ -1,0 +1,8 @@
+# file: group_vars/all/vars.yml
+#
+
+# Define the vault_* version of these variables
+# in group_vars/vars/ansible_ssh_sudo_user.yml
+#
+ansible_ssh_user: "{{ vault_ansible_ssh_user }}"
+ansible_become_password: "{{ vault_ansible_become_password }}"

@@ -1,0 +1,18 @@
+# {{ ansible_managed }}
+
+export JAVA_HOME=/etc/alternatives/jre
+JAVA_OPTS="$JAVA_OPTS -Djava.awt.headless=true"
+JAVA_OPTS="$JAVA_OPTS -Djava.security.egd=file:/dev/./urandom"
+
+# temporary: DC certs do not have SAN of ads.carleton.edu
+JAVA_OPTS="$JAVA_OPTS -Dcom.sun.jndi.ldap.object.disableEndpointIdentification=true"
+export JAVA_OPTS
+
+export CATALINA_BASE=/opt/tomcat
+export CATALINA_HOME=/opt/tomcat
+export CATALINA_PID=/opt/tomcat/temp/tomcat.pid
+#export CATALINA_OPTS=-Xms1024M -Xmx1024M -server -XX:+UseParallelGC
+
+
+export SSPR_APPLICATIONPATH="{{ sspr_applicationpath }}"
+export CATALINA_OPTS="-Xms1024M -Xmx1024M"

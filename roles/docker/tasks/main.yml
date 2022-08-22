@@ -1,0 +1,26 @@
+---
+# file: roles/docker/tasks/main.yml
+
+
+# "ansible_os_family": "Rocky",
+
+- name: assert Rocky Linux
+  assert:
+    that:
+      - ansible_os_family == 'Rocky'
+    quiet: true 
+
+- name: install repo
+  shell: dnf config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+  args:
+    creates: /etc/yum.repos.d/docker-ce.repo
+    warn: false
+
+- name: install docker 
+  yum:
+    name: ['docker-ce', 'docker-ce-cli', 'containerd.io', 'docker-compose-plugin']
+    state: present
+
+- name: docker | start docker
+  service: name=docker state=started enabled=yes
+

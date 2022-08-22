@@ -1,0 +1,65 @@
+---
+
+- name: Directories
+  file:
+    path:   "{{ item }}"
+    state:  directory
+    owner:  root
+    group:  root
+    mode:  "o=rwX,go=rX"
+  with_items:
+    - "{{ sspr_app_home }}"
+    - "{{ sspr_app_home }}/tomcat"
+    - "{{ sspr_app_home }}/tomcat/sspr_applicationpath"
+    - "{{ sspr_app_home }}/tomcat/tomcat_home"
+    - "{{ sspr_app_home }}/tomcat/tomcat_home/bin"
+    - "{{ sspr_app_home }}/tomcat/tomcat_home/webapps"
+    - "{{ sspr_app_home }}/shibd"
+
+- name: Dockerfile
+  template:
+    src:   tomcat-Dockerfile.j2
+    dest:  "{{ sspr_app_home }}/tomcat/Dockerfile"
+    owner: root
+    group: root
+    mode:  "u=rwX,go=rX"
+
+- name: Copy tomcat configuration
+  template:
+    src:   "{{ item.src }}"
+    dest:  "{{ item.dest }}"
+    owner: root
+    group: root
+    mode:  "{{ item.mode }}"
+  with_items:
+    - { src: tomcat-setenv.sh.j2, dest: "{{ sspr_app_home }}/tomcat/tomcat_home/bin/setenv.sh", mode: "o=rwx,go=rx" }
+
+- name: Copy SSPR configuration file
+  copy:
+    src:   SSPRConfiguration.xml
+    dest:  "{{ sspr_app_home }}/tomcat/sspr_applicationpath/SSPRConfiguration.xml"
+    owner: root
+    group: root
+    mode:  "u=rwX,go="
+
+- name: Copy in WAR file
+  copy:
+    src:   sspr.war
+    dest:  "{{ sspr_app_home }}/tomcat/tomcat_home/webapps/sspr.war"
+    owner: root
+    group: root
+    mode:  "u=rw,go=r"
+
+- name: Build local image
+  command: docker build -t "{{ sspr_applet_container_image }}" "{{ sspr_app_home }}/tomcat"
+
+- name: Helper scripts
+  template: 
+    src:   run_it.sh.j2
+    dest:  "{{ sspr_app_home }}/run_it.sh"
+    owner: root
+    group: root
+    mode:  "u=rwx,go=rx"
+
+- name: Start container
+  command: "{{ sspr_app_home }}/run_it.sh"

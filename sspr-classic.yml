@@ -1,0 +1,12 @@
+---
+# file: sspr-classic.yml
+# "classic" installation of SSPR WAR-file distribution
+
+- hosts: sspr_hosts
+  become: yes
+  handlers:
+    - include: handlers/handlers.yml
+  roles:
+    - java11-corretto
+    - tomcat
+    - sspr-classic

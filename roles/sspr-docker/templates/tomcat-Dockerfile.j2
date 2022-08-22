@@ -1,0 +1,11 @@
+# {{ ansible_managed }}
+
+ARG TOMCAT_VERSION={{ tomcat_version }}
+ 
+FROM tomcat:${TOMCAT_VERSION}
+MAINTAINER Les LaCroix llacroix@carleton.edu
+
+RUN apt update -y \
+    && apt upgrade -y
+
+COPY tomcat_home /usr/local/tomcat
