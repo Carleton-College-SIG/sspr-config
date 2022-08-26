@@ -5,6 +5,11 @@ all:
     cc_hosts:
       hosts:
         password-dev.its.carleton.edu:
+          sp_entity_id:    "https://password-dev.its.carleton.edu/shibboleth"
+          sp_signing_key:  "dev-sp-signing-key.pem.j2"
+          sp_signing_cert: "dev-sp-signing-cert.pem.j2"
+          sp_encrypt_key:  "dev-sp-encrypt-key.pem.j2"
+          sp_encrypt_cert: "dev-sp-encrypt-cert.pem.j2"
         # password-db.its.carleton.edu:
 
     sspr_hosts:

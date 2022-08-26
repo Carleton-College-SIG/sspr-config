@@ -10,3 +10,6 @@
     - java11-corretto
     - tomcat
     - sspr-classic
+    - ssl-classic
+    - httpd-classic
+    - shibd-classic   

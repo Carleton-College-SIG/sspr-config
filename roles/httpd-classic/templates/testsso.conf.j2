@@ -1,0 +1,14 @@
+# {{ ansible_managed }}
+#
+# A test configuration for shibd.  See /var/www/html/secure/index.html and /var/www/cgi-bin/env.pl
+#
+<Location /secure>
+  AuthType shibboleth
+  ShibRequestSetting requireSession 1
+  Require valid-user
+</Location>
+<Location /cgi-bin>
+  AuthType shibboleth
+  ShibRequestSetting requireSession 1
+  Require valid-user
+</Location>

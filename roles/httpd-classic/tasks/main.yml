@@ -1,0 +1,85 @@
+---
+# file: roles/httpd-classic/tasks/main.yml
+
+- name: Create apache groupp
+  group: name=apache state=present system=yes
+
+- name: Create apache user
+  user:
+    name:       apache
+    state:      present
+    comment:    'Apache httpd Web Server'
+    createhome: no
+    group:      apache
+    home:       /usr/share/httpd
+    shell:      /usr/sbin/nologin
+    system:     yes
+
+# TODO: install httpd
+# TODO: copy certs
+# TODO: configure httpd (ssl, revproxy)
+# TODO: start httpd service
+
+- name: Install httpd
+  ansible.builtin.dnf:
+    name: httpd
+    state: present
+
+- name: Install mod_ssl
+  ansible.builtin.dnf:
+    name: mod_ssl
+    state: present
+
+- name: Add conf files
+  ansible.builtin.template:
+    src:  "{{ item }}.j2"
+    dest: "/etc/httpd/conf.d/{{ item }}"
+    owner: root
+    group: root
+    mode: "o=rw,go=r"
+    backup: yes
+  notify: restart httpd
+  with_items:
+    - ssl.conf
+    - shib.conf
+
+- name: Start httpd
+  ansible.builtin.service:
+    name: httpd
+    state: started
+    enabled: yes
+
+- name: Set up sso test directory
+  ansible.builtin.file:
+    path: /var/www/html/secure
+    state: directory
+    owner: root
+    group: root
+    mode: "u=rwX,go=rX"
+  tags: [ never, enable_sso_test ]
+
+- name: Copy in sso test files
+  ansible.builtin.template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: root
+    group: root
+    mode: "{{ item.mode }}"
+  tags: [ never, enable_sso_test ]
+  notify: restart httpd
+  with_items:
+    - { src: testsso.conf.j2, dest: /etc/httpd/conf.d/testsso.conf, mode: "u=rw,go=r" }
+    - { src: test-index.html.j2, dest: /var/www/html/secure/index.html, mode: "u=rw,go=r" }
+    - { src: test-env.pl.j2, dest: /var/www/cgi-bin/env.pl, mode: "u=rwx,go=rx" }
+
+- name: Clean up sso test files
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  tags: [ never, disable_sso_test ]
+  notify: restart httpd
+  with_items:
+    - /etc/httpd/conf.d/testsso.conf
+    - /var/www/html/secure/index.html
+    - /var/www/cgi-bin/env.pl
+    - /var/www/html/secure
