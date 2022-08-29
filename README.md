@@ -5,7 +5,7 @@ Carleton SSPR configuration
 
 1. Clone this repository into a directory on the control host.
 1. Create the file .vaultpw with the contents of the LastPass item named "password.carleton.edu Ansible vault pw". Set permissions with chmod go= .vaultpw.
-1. ansible-vault create inventory/group_vars/all/ansible_ssh_sudo_user.yml and add the following lines, substituting your actual username and password:
+1. ansible-vault create group_vars/cc_hosts/ansible_ssh_sudo_user.yml and add the following lines, substituting your actual username and password:
 
 ```
 # file: inventory/group_vars/all/ansible_ssh_sudo_user.yml
