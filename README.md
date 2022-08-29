@@ -1,6 +1,25 @@
 # sspr-config
 Carleton SSPR configuration
 
+## Before you begin
+
+1. Clone this repository into a directory on the control host.
+1. Create the file .vaultpw with the contents of the LastPass item named "password.carleton.edu Ansible vault pw". Set permissions with chmod go= .vaultpw.
+1. ansible-vault create group_vars/cc_hosts/ansible_ssh_sudo_user.yml and add the following lines, substituting your actual username and password:
+
+```
+# file: inventory/group_vars/all/ansible_ssh_sudo_user.yml
+# 
+# FILE NOT INCLUDED IN GIT!!
+# 
+# Ansible ssh user and sudo ("become") user info.
+
+vault_ansible_ssh_user: <<your_username>>
+vault_ansible_become_password: "<<your_password>>"
+```
+
+# Old info!!!!
+
 ## Using this repository
 
 The SSPR configuration has credentials in it, and so to use it with version control we must first encrypt it.  We are using ansible-vault to encrypt the file, although we are not yet using Ansible for any other aspect of configuration.
