@@ -1,0 +1,53 @@
+# file: roles/shibd/tasks/main.yml
+
+- name: Check for shibd group
+  ansible.builtin.group:
+    name: shibd
+    system: yes
+
+- name: Check shibd user
+  ansible.builtin.user:
+    name:    shibd
+    system:  yes
+    group:   shibd
+    comment: Shibboleth SP daemon
+    home:    /var/run/shibboleth
+    shell:   /sbin/nologin
+
+# Repo was fetched from https://shibboleth.net/downloads/service-provider/RPMS/
+- name: Add repo
+  ansible.builtin.template:
+    src:    shibboleth.repo.j2
+    dest:   /etc/yum.repos.d/shibboleth.repo
+    owner:  root
+    group:  root
+    mode:   "u=rw,go=r"
+    backup: yes
+
+- name: Install 
+  ansible.builtin.dnf:
+    name:  shibboleth
+    state: latest
+
+- name: Copy changed shibd configutation files
+  ansible.builtin.template:
+    src:   "{{ item.src }}"
+    dest:  "/etc/shibboleth/{{ item.dest }}"
+    owner: "{{ item.owner | default('root') }}"
+    group: "{{ item.group | default('root') }}"
+    mode:  "{{ item.mode | default('u=rw,go=r') }}"
+    backup: yes
+  with_items:
+    - { src: inc-md-cert-mdq.pem.j2,dest: inc-md-cert-mdq.pem } 
+    - { src: shibboleth2.xml.j2, dest: shibboleth2.xml }
+    - { src: "{{ sp_signing_cert }}", dest: sp-signing-cert.pem, owner: shibd, group: shibd }
+    - { src: "{{ sp_signing_key }}", dest: sp-signing-key.pem, owner: shibd, group: shibd, mode: "u=rw,go=" }
+  notify: restart shibd
+
+- name: Enable and start shibd service
+  ansible.builtin.service:
+    name: shibd
+    state: started
+    enabled: yes
+
+

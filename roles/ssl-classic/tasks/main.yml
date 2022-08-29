@@ -1,0 +1,16 @@
+# file: roles/ssl-classic/tasks/main.yml
+
+- name: Add SSL certs and keys
+  ansible.builtin.template:
+    src:   "{{ item.src }}"
+    dest:  "/etc/pki/tls/{{ item.dest }}"
+    owner: "{{ item.owner | default('root') }}"
+    group: "{{ item.group | default('root') }}"
+    mode:  "{{ item.mode | default('u=rw,go=') }}"
+    backup: yes
+  with_items:
+    - { src: password.carleton.edu.cer.j2, dest: certs/password.carleton.edu.cer, mode: "u=rw,go=r" }
+    - { src: inCommon-SHA2.pem.j2, dest: certs/inCommon-SHA2.pem, mode: "u=rw,go=r" }
+    - { src: password.carleton.edu.key.j2, dest: private/password.carleton.edu.key }
+    - { src: password.carleton.edu.csr.j2, dest: private/password.carleton.edu.csr }
+  notify: restart httpd

@@ -1,0 +1,39 @@
+---
+# file: roles/java11/tasks/main.yml
+
+- name: java11 | Import Corretto public key
+  ansible.builtin.rpm_key:
+    state: present
+    key: https://yum.corretto.aws/corretto.key
+
+- name: java11 | Install repo file
+  get_url:
+    url:   https://yum.corretto.aws/corretto.repo
+    dest:  /etc/yum.repos.d/corretto.repo
+    owner: root
+    group: root
+    mode:  "u=rw,go=r"
+
+#- name: java11 | Define packages
+#  set_fact:
+#    java8_packages: "{{ __java8_packages | list }}"
+#  when: java8_packages is not defined
+
+- name: java11 | Install packages
+  dnf:
+    name: java-11-amazon-corretto-devel
+    state: present
+    allow_downgrade: yes
+
+# - name: java8 | Install jdk
+#   yum:
+#     name: ['java-1.8.0-openjdk', 'java-1.8.0-openjdk-devel']
+#     state: present
+
+#- name: java8 | Set profile
+#  copy:
+#    src:   java.sh
+#    dest:  /etc/profile.d/java.sh
+#    owner: root
+#    group: root
+#    mode:  "u=rw,go=r"

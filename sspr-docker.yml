@@ -1,0 +1,8 @@
+---
+# file: sspr.yml
+
+- hosts: all
+  become: yes
+  roles:
+    - docker
+    - sspr
