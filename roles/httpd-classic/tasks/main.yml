@@ -32,16 +32,18 @@
 
 - name: Add conf files
   ansible.builtin.template:
-    src:  "{{ item }}.j2"
-    dest: "/etc/httpd/conf.d/{{ item }}"
+    src:  "{{ item.src }}"
+    dest: "{{ item.dest }}"
     owner: root
     group: root
     mode: "o=rw,go=r"
     backup: yes
   notify: restart httpd
   with_items:
-    - ssl.conf
-    - shib.conf
+    - { src: ssl.conf.j2, dest: /etc/httpd/conf.d/ssl.conf }
+    - { src: shib.conf.j2, dest: /etc/httpd/conf.d/shib.conf }
+    - { src: revproxy.conf.j2, dest: /etc/httpd/conf.d/revproxy.conf }
+    - { src: httpd.conf.j2, dest: /etc/httpd/conf/httpd.conf }
 
 - name: Start httpd
   ansible.builtin.service:
