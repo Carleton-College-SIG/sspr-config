@@ -44,6 +44,7 @@
     - { src: shib.conf.j2, dest: /etc/httpd/conf.d/shib.conf }
     - { src: revproxy.conf.j2, dest: /etc/httpd/conf.d/revproxy.conf }
     - { src: httpd.conf.j2, dest: /etc/httpd/conf/httpd.conf }
+    - { src: redirect.conf.j2, dest: /etc/httpd/conf.d/redirect.conf }
 
 - name: Start httpd
   ansible.builtin.service:
