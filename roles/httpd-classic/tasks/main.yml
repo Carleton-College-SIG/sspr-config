@@ -15,10 +15,6 @@
     shell:      /usr/sbin/nologin
     system:     yes
 
-# TODO: install httpd
-# TODO: copy certs
-# TODO: configure httpd (ssl, revproxy)
-# TODO: start httpd service
 
 - name: Install httpd
   ansible.builtin.dnf:
@@ -45,6 +41,7 @@
     - { src: revproxy.conf.j2, dest: /etc/httpd/conf.d/revproxy.conf }
     - { src: httpd.conf.j2, dest: /etc/httpd/conf/httpd.conf }
     - { src: redirect.conf.j2, dest: /etc/httpd/conf.d/redirect.conf }
+    - { src: index.html.j2, dest: var/www/html/index.html }
 
 - name: Start httpd
   ansible.builtin.service:
