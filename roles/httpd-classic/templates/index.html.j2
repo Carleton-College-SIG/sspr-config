@@ -1,15 +1,199 @@
 <!-- {{ ansible_managed }} -->
 
 <html>
-   <head>
-      <meta content="text/html; charset=UTF-8" http-equiv="content-type">
-      <style type="text/css">ol{margin:0;padding:0}table td,table th{padding:0}.c7{color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:26pt;font-family:"Arial";font-style:normal}.c3{padding-top:0pt;padding-bottom:3pt;line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}.c4{color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:11pt;font-family:"Arial";font-style:normal}.c0{padding-top:0pt;padding-bottom:0pt;line-height:1.15;orphans:2;widows:2;text-align:left}.c1{text-decoration-skip-ink:none;-webkit-text-decoration-skip:none;color:#1155cc;text-decoration:underline}.c6{background-color:#ffffff;max-width:468pt;padding:72pt 72pt 72pt 72pt}.c2{color:inherit;text-decoration:inherit}.c5{height:11pt}.title{padding-top:0pt;color:#000000;font-size:26pt;padding-bottom:3pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}.subtitle{padding-top:0pt;color:#666666;font-size:15pt;padding-bottom:16pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}li{color:#000000;font-size:11pt;font-family:"Arial"}p{margin:0;color:#000000;font-size:11pt;font-family:"Arial"}h1{padding-top:20pt;color:#000000;font-size:20pt;padding-bottom:6pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}h2{padding-top:18pt;color:#000000;font-size:16pt;padding-bottom:6pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}h3{padding-top:16pt;color:#434343;font-size:14pt;padding-bottom:4pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}h4{padding-top:14pt;color:#666666;font-size:12pt;padding-bottom:4pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}h5{padding-top:12pt;color:#666666;font-size:11pt;padding-bottom:4pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}h6{padding-top:12pt;color:#666666;font-size:11pt;padding-bottom:4pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;font-style:italic;orphans:2;widows:2;text-align:left}</style>
-   </head>
-   <body class="c6 doc-content">
-      <p class="c3 title" id="h.fp8cfn2wto2d"><span class="c7">SSPR - Self Service Password Reset</span></p>
-      <p class="c0"><span class="c1"><a class="c2" href="https://password-dev.its.carleton.edu/sspr/">Change Password, Update Profile, and more</a></span></p>
-      <p class="c0"><span class="c1"><a class="c2" href="https://password-dev.its.carleton.edu/sspr/public/forgottenpassword">Forgotten Password</a></span></p>
-      <p class="c0"><span class="c1"><a class="c2" href="https://password-dev.its.carleton.edu/sspr/public/forgottenusername">Forgotten Username</a></span></p>
-      <p class="c0 c5"><span class="c4"></span></p>
-   </body>
+<head>
+	<meta content="text/html; charset=UTF-8" http-equiv="content-type">
+	<style>
+		body, html {
+			padding: 0;
+			margin: 0;
+
+			font-family: "ProximaNova", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+			color: #333;
+		}
+
+		h1, h2, h3, h4, h5, h6 {
+			margin-top: 2em;
+			margin-bottom: 0.5em;
+		}
+
+		#carletonBanner {
+			font-size: 1em;
+			font-family: "ProximaNova", Gotham, "Helvetica Neue", Arial, Helvetica, sans-serif;
+			line-height: 1.4em;
+			background: #0b5091;
+			/*color: #c2d3e4;*/
+			color: #ffffff;
+			position: relative;
+			height: 30px;
+			padding: 10px 20px;
+		}
+
+		#carletonBanner .logo {
+			float: left;
+			margin: 2px 10px 0 0;
+		}
+
+		#carletonBanner a img {
+			border: 0;
+		}
+
+		#carletonBanner .search {
+			float: right;
+		}
+
+		#carletonBanner .search form {
+			display: inline-block;
+			margin: 0;
+		}
+
+		#carletonBanner .search #bannerSearch {
+			padding: 7px;
+			box-sizing: border-box;
+			height: 32px;
+			width: 14.5em;
+			background: #aec5db;
+			border: 0;
+			border-radius: 0;
+			font-size: 12px;
+			color: #333;
+		}
+
+		#carletonBanner .search #bannerSearch::placeholder {
+			color: #555;
+		}
+
+		#carletonBanner .search #bannerSearch:focus {
+			background: #cedce9;
+		}
+
+		#carletonBanner .search input[type="image"], #carletonBanner .search #bannerSearch {
+			vertical-align: middle;
+		}
+
+		#carletonBanner .search input[type="image"] {
+			padding: 10px 9px 8px;
+			background: #306aa2;
+			display: inline-block;
+			line-height: 0.5em;
+			color: #fff;
+			border: 0;
+			border-radius: 0;
+		}
+
+		#content-wrapper {
+			max-width: 64em;
+			margin: 0 auto;
+		}
+
+		#content {
+			padding: 0 1em;
+		}
+
+		.active-content {
+			margin: 2em auto;
+			max-width: 42em;
+		}
+
+		.page-label {
+			box-sizing: border-box;
+			padding: 1.5em 0.5em 0.5em;
+			background: #ddd;
+			color: #000;
+		}
+
+		.active-content ul li + li {
+			margin-top: 0.5em;
+		}
+
+		#footer {
+			box-sizing: content-box;
+			margin: 2em auto;
+			padding: 1em;
+			max-width: 42em;
+		}
+
+		#footer #maintainer {
+			border-top: 5px solid #ddd;
+			padding: 1em 0;
+			font-size: 0.85em;
+			text-align: center;
+		}
+
+		#footer #maintainer a {
+			text-wrap: avoid;
+		}
+	</style>
+</head>
+<body>
+
+<div id="carletonBanner">
+	<a href="//www.carleton.edu/" class="home">
+		<img width="125" height="22" alt="Carleton"
+			 src="data:image/png;base64,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"
+			 class="logo">
+	</a>
+
+	<div class="search">
+		<form id="bannerSearchForm" method="get" action="https://www.carleton.edu/search/" class="focused">
+			<div class="basic"><input type="search" autocomplete="off" id="bannerSearch" name="q"
+									  placeholder="Search People &amp; Pages"><input id="bannerSearchImage" type="image"
+																					 width="14" height="14" alt="Submit"
+																					 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAKNJREFUeNpi+v//PwMQCwDx/P+o4D4QB0DlMTBM03kkxeuR+CCQgEsjzKb5aJIOQPweKqeATSPMJgEsJjdA5RvQ5ZgYIOABEH9gwAQHGHAAmEYBHPIKuDSCrN2PIxAEoF74D/Uvhh8dkEJwPjQKCpA04dTIAFV8/z9+kIBNI3IUNEAVKUBprJoZcKUMJJyATSMLA2GwABubEWwtGYCJgUwAEGAACuyu1ZUGgekAAAAASUVORK5CYII="
+																					 aria-hidden="true"></div>
+		</form>
+	</div>
+</div>
+
+<div id="content-wrapper">
+	<div id="content">
+
+		<div class="active-content">
+			<h1 class="page-label">Self Service Password&nbsp;Reset</h1>
+
+			<h2>Manage Your Password</h2>
+			<ul>
+				<li><a href="https://password-dev.its.carleton.edu/sspr/">Change Password, Update Profile, and more</a>
+				</li>
+				<li><a href="https://password-dev.its.carleton.edu/sspr/public/forgottenpassword">Forgotten Password</a>
+				</li>
+				<li><a href="https://password-dev.its.carleton.edu/sspr/public/forgottenusername">Forgotten Username</a>
+				</li>
+			</ul>
+
+			<h3>Duo Two-Factor Authentication <small>(<a
+					href="https://go.carleton.edu/duo">?</a>)</small></h3>
+			<ul>
+				<li><a href="https://login-apps.carleton.edu/auth/auth_pref.php">Turn Two-Factor on (or off)</a></li>
+				<li><a href="https://login-apps.carleton.edu/auth/duo/">Manage your phones and devices</a></li>
+			</ul>
+
+			<h4>Log On To:</h4>
+			<ul>
+				<li>Google: <a href="https://mail.google.com/a/carleton.edu">Gmail</a> | <a
+						href="https://drive.google.com/a/carleton.edu/">Drive</a> | <a
+						href="https://calendar.google.com/a/carleton.edu/">Calendar</a></li>
+				<li><a href="https://moodle.carleton.edu/auth/shibboleth/index.php">Moodle</a></li>
+				<li><a href="https://portal.microsoft.com/">Microsoft Office 365</a></li>
+				<li><a href="https://login.carleton.edu/idp/profile/SAML2/Unsolicited/SSO?providerId=secure.bswift.com">Online
+					Employee Benefits Enrollment</a></li>
+				<li>
+					<a href="https://login.carleton.edu/idp/profile/SAML2/Unsolicited/SSO?providerId=https%3A%2F%2Fwww.linkedin.com%2Flearning%2FABEAAAAAAAN-ozEAAAAAA9UYKQHN16R2UvzA1UtF_QK5H5fNEzjo0w">LinkedIn
+						Learning (formerly Lynda.com)</a></li>
+			</ul>
+
+			<p><a href="https://go.carleton.edu/accounts">More information about accounts</a></p>
+		</div>
+
+	</div>
+	<div id="footer">
+		<div id="maintainer">
+			this page maintained by <a href="https://www.carleton.edu/its/">Information Technology Services</a>
+			&bull;
+			email: <a href="mailto:helpdesk@carleton.edu">helpdesk@carleton.edu</a>
+		</div>
+	</div>
+</div>
+
+</body>
 </html>
