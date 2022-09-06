@@ -11,5 +11,5 @@
     - tomcat
     - sspr-classic
     - ssl-classic
+    - shibd-classic
     - httpd-classic
-    - shibd-classic   

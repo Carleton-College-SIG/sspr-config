@@ -42,6 +42,8 @@
     - { src: shibboleth2.xml.j2, dest: shibboleth2.xml }
     - { src: "{{ sp_signing_cert }}", dest: sp-signing-cert.pem, owner: shibd, group: shibd }
     - { src: "{{ sp_signing_key }}", dest: sp-signing-key.pem, owner: shibd, group: shibd, mode: "u=rw,go=" }
+    - { src: "{{ sp_encrypt_cert }}", dest: sp-encrypt-cert.pem, owner: shibd, group: shibd }
+    - { src: "{{ sp_encrypt_key }}", dest: sp-encrypt-key.pem, owner: shibd, group: shibd, mode: "u=rw,go=" }
   notify: restart shibd
 
 - name: Enable and start shibd service
