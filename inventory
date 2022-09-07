@@ -1,4 +1,4 @@
-# Ansible inventory for grouper
+# Ansible inventory for SSPR
 
 all:
   children:
@@ -10,12 +10,14 @@ all:
           sp_signing_cert: "dev-sp-signing-cert.pem.j2"
           sp_encrypt_key:  "dev-sp-encrypt-key.pem.j2"
           sp_encrypt_cert: "dev-sp-encrypt-cert.pem.j2"
+          sspr_nodename:   "password-dev.its.carleton.edu"
         password-uat.its.carleton.edu:
           sp_entity_id:    "https://password-uat.its.carleton.edu/shibboleth"
           sp_signing_key:  "uat-sp-signing-key.pem.j2"
           sp_signing_cert: "uat-sp-signing-cert.pem.j2"
           sp_encrypt_key:  "uat-sp-encrypt-key.pem.j2"
           sp_encrypt_cert: "uat-sp-encrypt-cert.pem.j2"
+          sspr_nodename:   "password-uat.its.carleton.edu"
         # password-db.its.carleton.edu:
 
     sspr_hosts:
