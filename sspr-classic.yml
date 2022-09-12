@@ -7,7 +7,8 @@
   handlers:
     - include: handlers/handlers.yml
   roles:
-    - java11-corretto
+    - role: java11-corretto
+      tags: corretto
     - tomcat
     - sspr-classic
     - ssl-classic
