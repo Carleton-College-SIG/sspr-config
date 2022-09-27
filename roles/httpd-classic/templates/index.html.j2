@@ -2,197 +2,173 @@
 
 <html>
 <head>
-	<meta content="text/html; charset=UTF-8" http-equiv="content-type">
-	<style>
-		body, html {
-			padding: 0;
-			margin: 0;
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+    <title>Carleton Password &amp; Account Management</title>
 
-			font-family: "ProximaNova", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
-			color: #333;
-		}
+    <link rel="stylesheet" type="text/css" href="https://cloud.typography.com/7225774/6174812/css/fonts.css" />
+    <style>
+        body, html {
+            padding: 0;
+            margin: 0;
 
-		h1, h2, h3, h4, h5, h6 {
-			margin-top: 2em;
-			margin-bottom: 0.5em;
-		}
+            font-family: "Gotham SSm A", "Gotham SSm B", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            color: #333;
+        }
 
-		#carletonBanner {
-			font-size: 1em;
-			font-family: "ProximaNova", Gotham, "Helvetica Neue", Arial, Helvetica, sans-serif;
-			line-height: 1.4em;
-			background: #0b5091;
-			/*color: #c2d3e4;*/
-			color: #ffffff;
-			position: relative;
-			height: 30px;
-			padding: 10px 20px;
-		}
+        h1, h2, h3, h4, h5, h6 {
+            font-family: "Gotham SSm A", "Gotham SSm B", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            margin-top: 2em;
+            margin-bottom: 0.5em;
+            color: #555;
+        }
 
-		#carletonBanner .logo {
-			float: left;
-			margin: 2px 10px 0 0;
-		}
+        h1 {
+            font-size: 3em;
+            margin-top: 1em;
+            font-family: "Surveyor Display A", "Surveyor Display B", Georgia, "Times New Roman", serif;
+            color: #333;
+        }
 
-		#carletonBanner a img {
-			border: 0;
-		}
+        #content-wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
 
-		#carletonBanner .search {
-			float: right;
-		}
+        #content {
+            padding: 0 1em;
+        }
 
-		#carletonBanner .search form {
-			display: inline-block;
-			margin: 0;
-		}
+        .active-content {
+            margin: 2em auto;
+            /*max-width: 42em;*/
+            padding-bottom: 2em;
+            border-bottom: 3px solid #ddd;
+        }
 
-		#carletonBanner .search #bannerSearch {
-			padding: 7px;
-			box-sizing: border-box;
-			height: 32px;
-			width: 14.5em;
-			background: #aec5db;
-			border: 0;
-			border-radius: 0;
-			font-size: 12px;
-			color: #333;
-		}
+        .page-label {
+            /*box-sizing: border-box;*/
+            /*padding: 1.5em 0.5em 0.5em;*/
+            /*background: #ddd;*/
+            /*color: #000;*/
+        }
 
-		#carletonBanner .search #bannerSearch::placeholder {
-			color: #555;
-		}
+        .active-content ul li + li {
+            margin-top: 0.5em;
+        }
 
-		#carletonBanner .search #bannerSearch:focus {
-			background: #cedce9;
-		}
+        #footer::before {
+            content: url("data:image/png;base64,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");
+            display: block;
+            width: 184px;
+            height: 42px;
+            margin: -50px auto 8px;
+        }
 
-		#carletonBanner .search input[type="image"], #carletonBanner .search #bannerSearch {
-			vertical-align: middle;
-		}
+        #footer {
+            box-sizing: content-box;
+            margin: 4em auto 2em;
+            padding: 1em;
+            max-width: 42em;
+        }
 
-		#carletonBanner .search input[type="image"] {
-			padding: 10px 9px 8px;
-			background: #306aa2;
-			display: inline-block;
-			line-height: 0.5em;
-			color: #fff;
-			border: 0;
-			border-radius: 0;
-		}
+        #footer #maintainer {
+            /*border-top: 2px solid #ddd;*/
+            padding: 1em 0;
+            font-size: 0.85em;
+            text-align: center;
+        }
 
-		#content-wrapper {
-			max-width: 64em;
-			margin: 0 auto;
-		}
-
-		#content {
-			padding: 0 1em;
-		}
-
-		.active-content {
-			margin: 2em auto;
-			max-width: 42em;
-		}
-
-		.page-label {
-			box-sizing: border-box;
-			padding: 1.5em 0.5em 0.5em;
-			background: #ddd;
-			color: #000;
-		}
-
-		.active-content ul li + li {
-			margin-top: 0.5em;
-		}
-
-		#footer {
-			box-sizing: content-box;
-			margin: 2em auto;
-			padding: 1em;
-			max-width: 42em;
-		}
-
-		#footer #maintainer {
-			border-top: 5px solid #ddd;
-			padding: 1em 0;
-			font-size: 0.85em;
-			text-align: center;
-		}
-
-		#footer #maintainer a {
-			text-wrap: avoid;
-		}
-	</style>
+        #footer #maintainer a {
+            text-wrap: avoid;
+        }
+    </style>
 </head>
 <body>
 
-<div id="carletonBanner">
-	<a href="//www.carleton.edu/" class="home">
-		<img width="125" height="22" alt="Carleton"
-			 src="data:image/png;base64,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"
-			 class="logo">
-	</a>
-
-	<div class="search">
-		<form id="bannerSearchForm" method="get" action="https://www.carleton.edu/search/" class="focused">
-			<div class="basic"><input type="search" autocomplete="off" id="bannerSearch" name="q"
-									  placeholder="Search People &amp; Pages"><input id="bannerSearchImage" type="image"
-																					 width="14" height="14" alt="Submit"
-																					 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAKNJREFUeNpi+v//PwMQCwDx/P+o4D4QB0DlMTBM03kkxeuR+CCQgEsjzKb5aJIOQPweKqeATSPMJgEsJjdA5RvQ5ZgYIOABEH9gwAQHGHAAmEYBHPIKuDSCrN2PIxAEoF74D/Uvhh8dkEJwPjQKCpA04dTIAFV8/z9+kIBNI3IUNEAVKUBprJoZcKUMJJyATSMLA2GwABubEWwtGYCJgUwAEGAACuyu1ZUGgekAAAAASUVORK5CYII="
-																					 aria-hidden="true"></div>
-		</form>
-	</div>
-</div>
+<!-- begin BLUEBAR -->
+<style>@font-face{font-family:'bb';src:url(data:application/x-font-woff;charset=utf-8;base64,d09GRgABAAAAAAXMAAsAAAAABYAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABPUy8yAAABCAAAAGAAAABgKGL/hGNtYXAAAAFoAAAAXAAAAFzpPiZuZ2FzcAAAAcQAAAAIAAAACAAAABBnbHlmAAABzAAAAeQAAAHk5Qm9OmhlYWQAAAOwAAAANgAAADYGBnJGaGhlYQAAA+gAAAAkAAAAJAPiAelobXR4AAAEDAAAACAAAAAgCvoABWxvY2EAAAQsAAAAEgAAABIBgADCbWF4cAAABEAAAAAgAAAAIAALAFduYW1lAAAEYAAAAUoAAAFKIAmJsnBvc3QAAAWsAAAAIAAAACAAAwAAAAMBzAGQAAUAAAFMAWYAAABHAUwBZgAAAPUAGQCEAAAAAAAAAAAAAAAAAAAAARAAIAAAAAAAAAAAAAAAAAAAQAAA6QIB4P/gACAB4AAgAAAAAQAAAAAAAAAAAAAAIAAAAAAAAwAAAAMAAAAcAAEAAwAAABwAAwABAAAAHAAEAEAAAAAMAAgAAgAEAAEAICW86QL//f//AAAAAAAgJbzpAP/9//8AAf/j2kgXBQADAAEAAAAAAAAAAAAAAAAAAQAB//8ADwABAAAAAAAAAAAAAgAANzkBAAAAAAEAAAAAAAAAAAACAAA3OQEAAAAAAQAAAAAAAAAAAAIAADc5AQAAAAABAAAAYAIAAWAAAgAAJQEhAQABAP4AYAEAAAAAAgAE/+AB8wHbABgAJQAAJSc+ATU0LgIjIg4CFRQeAjMyNjcXNyU0NjMyFhUUBiMiJjUB830PEiA2SioqSTcfHzdKKRoxFoBF/lJQODlQUDk4UCV9GDgfKkk3ICA3SSoqSTcgDQyARew5UFA5OVBQOQAAAAABAAAAAAIAAbAAEAAAJSc1IxUnARUzFTM1MxUzNTMCAGBAYP8AQKBAoECwYJBQYP8AEKBgYKAAAAEAAf/hAf8B3wBUAAAlOAExJzc4ATE+ATc2Ji8BLgEHDgEHOAExByc4ATEuAScmBg8BDgEXHgEXOAExFwc4ATEOAQcGFh8BHgE3PgE3OAExNxc4ATEeARcWNj8BPgEnLgEnAfubmwIBAQICBEkDCgQCAgKbmwICAgQKA0kEAgIBAQKbmwIBAQICBEkDCgQCAgKbmwICAgQKA0kEAgIBAQJFm5sCAgIECgNJBAICAQECm5sCAQECAgRJAwoEAgICm5sCAgIECgNJBAICAQECm5sCAQECAgRJAwoEAgICAAAAAQAAAAEAAOPsT59fDzz1AAsCAAAAAADSc5jFAAAAANJzmMUAAP/gAgAB3wAAAAgAAgAAAAAAAAABAAAB4P/gAAACAAAAAAACAAABAAAAAAAAAAAAAAAAAAAACAIAAAAAAAAAAAAAAAEAAAACAAAAAfoABAIAAAACAAABAAAAAAAKABQAHgAsAGYAggDyAAAAAQAAAAgAVQACAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAA4ArgABAAAAAAABAAIAAAABAAAAAAACAAcAMwABAAAAAAADAAIAJwABAAAAAAAEAAIASAABAAAAAAAFAAsABgABAAAAAAAGAAIALQABAAAAAAAKABoATgADAAEECQABAAQAAgADAAEECQACAA4AOgADAAEECQADAAQAKQADAAEECQAEAAQASgADAAEECQAFABYAEQADAAEECQAGAAQALwADAAEECQAKADQAaGJiAGIAYlZlcnNpb24gMS4wAFYAZQByAHMAaQBvAG4AIAAxAC4AMGJiAGIAYmJiAGIAYlJlZ3VsYXIAUgBlAGcAdQBsAGEAcmJiAGIAYkZvbnQgZ2VuZXJhdGVkIGJ5IEljb01vb24uAEYAbwBuAHQAIABnAGUAbgBlAHIAYQB0AGUAZAAgAGIAeQAgAEkAYwBvAE0AbwBvAG4ALgAAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=) format('woff');font-weight:normal;font-style:normal}body{margin:0;padding:0}#carletonBanner{font-family:"ProximaNova",Gotham,"Helvetica Neue",Arial,Helvetica,sans-serif;line-height:1.4;background:#0b5091;color:#c2d3e4;color:#ffffff;position:relative}#carletonBanner>.overlayBorder{position:absolute;width:100%;bottom:-1px;height:1px;background:rgba(255,255,255,0.25)}#carletonBanner ul{list-style:none;margin:0;padding:0}#carletonBanner a{text-decoration:none;color:#ffffff}#carletonBanner a img{border:0}#carletonBanner form{margin:0}#carletonBanner>.persistent{padding:10px 20px}#carletonBanner>.persistent:after{content:"";display:table;clear:both}#carletonBanner .logo{float:left;margin:2px 10px 0 0}#carletonBanner .home{margin-right:2px;float:left}#carletonBanner .home span.icon{float:left;background:#306aa2;padding:5px 10px;min-height:1.4em;display:inline-block}#carletonBanner .home span.icon>span:before{content:"\e901";font-family:'bb';speak:none;font-style:normal;font-weight:normal;font-variant:normal;text-transform:none;line-height:1;-moz-osx-font-smoothing:grayscale;text-decoration:none;color:#c2d3e4}#carletonBanner .home span.icon>em{position:absolute;left:-9999px}#carletonBanner .home:hover span.icon,#carletonBanner .home:active span.icon,#carletonBanner .home:focus span.icon{background:#487cad}#carletonBanner .home:hover span.icon>span:before,#carletonBanner .home:active span.icon>span:before,#carletonBanner .home:focus span.icon>span:before{color:#ffffff}#carletonBanner .menu{float:left}#carletonBanner .menu>li{float:left;margin-right:2px}#carletonBanner .menu>li>a{display:block;background:#306aa2;padding:5px 10px;min-height:1.4em}#carletonBanner .menu>li>a:hover,#carletonBanner .menu>li>a:active,#carletonBanner .menu>li>a:focus{background:#487cad}#carletonBanner .menu>li.bbFor>a>em{font-style:normal}#carletonBanner .search{float:right}#carletonBanner .search #searchToggle,#carletonBanner .search input[type="image"]{padding:10px 9px 8px;background:#306aa2;display:inline-block;line-height:.5;color:#ffffff;border:0;-webkit-appearance:none;-moz-appearance:none;border-radius:0}#carletonBanner .search #searchToggle:hover,#carletonBanner .search input[type="image"]:hover,#carletonBanner .search #searchToggle:active,#carletonBanner .search input[type="image"]:active,#carletonBanner .search #searchToggle:focus,#carletonBanner .search input[type="image"]:focus{background:#487cad}#carletonBanner .search #searchToggle{display:none}#carletonBanner .search form{display:inline-block}#carletonBanner .search input[type="image"],#carletonBanner .search #bannerSearch{vertical-align:middle}#carletonBanner .search input[type="image"]::moz-focus-inner{border:0;padding:0}#carletonBanner .search .dialog{position:absolute;left:-9999px}#carletonBanner .search #bannerSearchForm{position:relative}#carletonBanner .search #bannerSearch{padding:7px;-moz-box-sizing:border-box;box-sizing:border-box;height:32px;width:14.5em;background:#aec5db;border:0;-webkit-appearance:none;-moz-appearance:none;border-radius:0;font-size:12px}#carletonBanner .search #bannerSearch:focus{background:#cedce9}#carletonBanner .search #bannerSearch::-webkit-input-placeholder{color:#3b434c}#carletonBanner .search #bannerSearch:-moz-placeholder{color:#3b434c;opacity:1}#carletonBanner .search #bannerSearch::-moz-placeholder{color:#3b434c;opacity:1}#carletonBanner .search #bannerSearch:-ms-input-placeholder{color:#3b434c}#carletonBanner .search #bannerSearch::-ms-input-placeholder{color:#3b434c}#carletonBanner .search #bannerSearch::placeholder{color:#3b434c}#carletonBanner .search #bannerSearch:focus::-webkit-input-placeholder{color:#58646f}#carletonBanner .search #bannerSearch:focus:-moz-placeholder{color:#58646f;opacity:1}#carletonBanner .search #bannerSearch:focus::-moz-placeholder{color:#58646f;opacity:1}#carletonBanner .search #bannerSearch:focus:-ms-input-placeholder{color:#58646f}#carletonBanner .search #bannerSearch:focus::-ms-input-placeholder{color:#58646f}#carletonBanner .search #bannerSearch:focus::placeholder{color:#58646f}@media all and (max-width:650px){#carletonBanner .menu{position:absolute;left:-9999px}}@media all and (max-width:800px){#carletonBanner .search #searchToggle{display:inline-block}#carletonBanner .search form{display:none}}@media all and (min-width:999px){#carletonBanner .search>.alternates{display:block !important;float:left;margin-right:10px}#carletonBanner .search>.alternates>a{background:#23629c;display:inline-block;padding:5px 10px;margin-right:2px;color:#dae5ef}#carletonBanner .search>.alternates>a:hover,#carletonBanner .search>.alternates>a:active,#carletonBanner .search>.alternates>a:focus{background:#3c73a7;color:#ffffff}}</style><script>(function(){document.addEventListener("DOMContentLoaded",function(a){var b;return b=document.createElement("script"),b.type="text/javascript",b.src="https://apps.carleton.edu/global_stock/bb-external/js/bluebar.min.js",b.readyState?b.onreadystatechange=function(){"loaded"!==b.readyState&&"complete"!==b.readyState||(b.onreadystatechange=null,initialBluebarSetup())}:b.onload=function(){initialBluebarSetup()},document.getElementsByTagName("head")[0].appendChild(b)})}).call(this);</script><link rel="stylesheet" href="https://apps.carleton.edu/global_stock/bb-external/css/bluebar.css?v=2"/><nav id="carletonBanner" role="navigation">
+    <div class="persistent">
+        <a href="//www.carleton.edu/" class="home"><img width="125" height="22" alt="Carleton" src="data:image/png;base64,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" class="logo"/><span class="icon"><span aria-hidden="true"></span><em>Home</em></span></a>
+        <a id="menuToggle" href="#bbMenu" style="display:none;">Menu</a>
+        <ul class="menu" id="bbMenu">
+            <li class="tab"><a href="https://www.carleton.edu/academics/" data-target="https://apps.carleton.edu/global_stock/bb-external/html/academics.html">Academics</a></li>
+            <li class="tab"><a href="https://www.carleton.edu/student-life/" data-target="https://apps.carleton.edu/global_stock/bb-external/html/campuslife.html">Campus Life</a></li>
+            <li class="tab"><a href="https://www.carleton.edu/admissions/" data-target="https://apps.carleton.edu/global_stock/bb-external/html/admissions.html">Admissions</a></li>
+            <li class="for" id="bbFor"><a id="bbForLink" href="https://www.carleton.edu/wp-sitemap-sites-1.xml">For<em>&#8230;</em></a>
+                <ul id="bbForList" aria-live="polite" style="display:none;">
+                    <li><a href="https://www.carleton.edu/student/">Students</a></li>
+                    <li><a href="https://www.carleton.edu/facstaff/">Faculty &amp; Staff</a></li>
+                    <li><a href="https://www.carleton.edu/parents/">Parents &amp; Families</a></li>
+                    <li><a href="https://www.carleton.edu/alumni/">Alumni</a></li>
+                    <li><a href="https://www.carleton.edu/admissions/">Prospective Students</a></li>
+                </ul>
+            </li>
+        </ul>
+        <div class="search">
+            <div class="alternates" style="display:none"><a href="https://www.carleton.edu/directory/" title="Campus Directory">Directory</a></div>
+            <a href="https://www.carleton.edu/search/" id="searchToggle"><img width="14" height="14" alt="Search" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAKNJREFUeNpi+v//PwMQCwDx/P+o4D4QB0DlMTBM03kkxeuR+CCQgEsjzKb5aJIOQPweKqeATSPMJgEsJjdA5RvQ5ZgYIOABEH9gwAQHGHAAmEYBHPIKuDSCrN2PIxAEoF74D/Uvhh8dkEJwPjQKCpA04dTIAFV8/z9+kIBNI3IUNEAVKUBprJoZcKUMJJyATSMLA2GwABubEWwtGYCJgUwAEGAACuyu1ZUGgekAAAAASUVORK5CYII="/></a>
+            <form id="bannerSearchForm" method="get" action="https://www.carleton.edu/search/">
+                <div class="basic"><input type="search" autocomplete="off" id="bannerSearch" name="q" placeholder="Search People &amp; Pages"/><input id="bannerSearchImage" type="image" width="14" height="14" alt="Submit" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAKNJREFUeNpi+v//PwMQCwDx/P+o4D4QB0DlMTBM03kkxeuR+CCQgEsjzKb5aJIOQPweKqeATSPMJgEsJjdA5RvQ5ZgYIOABEH9gwAQHGHAAmEYBHPIKuDSCrN2PIxAEoF74D/Uvhh8dkEJwPjQKCpA04dTIAFV8/z9+kIBNI3IUNEAVKUBprJoZcKUMJJyATSMLA2GwABubEWwtGYCJgUwAEGAACuyu1ZUGgekAAAAASUVORK5CYII="/></div>
+                <div class="dialog" id="bannerSearchDialog">
+                    <div class="activeLabel"><label for="bannerSearch">Search People &amp; Pages</label></div>
+                    <div class="scopes" style="display:none">
+                        <fieldset>
+                            <legend>What Should We Search?</legend>
+                            <label><input type="radio" checked="checked" name="scope" value=""/> Search all of Carleton.edu</label>
+                            <label><input type="radio" id="searchLimitURL" name="scope" value=""/> Just <span id="searchLimitName"></span></label>
+                        </fieldset>
+                        <input type="submit" value="Submit"/>
+                    </div>
+                    <div class="alternates"><a href="https://www.carleton.edu/directory/">Campus Directory</a></div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="closer" style="display:none;"><a href="#carletonBanner">Close</a></div>
+    <div class="overlayBorder"></div>
+</nav>
+<!-- end BLUEBAR -->
 
 <div id="content-wrapper">
-	<div id="content">
+    <div id="content">
 
-		<div class="active-content">
-			<h1 class="page-label">Self Service Password&nbsp;Reset</h1>
+        <div class="active-content">
+            <h1 class="page-label">Carleton Password &amp; Account&nbsp;Management</h1>
 
-			<h2>Manage Your Password</h2>
-			<ul>
-				<li><a href="https://{{ sspr_nodename }}/sspr/">Change Password, Update Profile, and more</a>
-				</li>
-				<li><a href="https://{{ sspr_nodename }}/sspr/public/forgottenpassword">Forgotten Password</a>
-				</li>
-				<li><a href="https://{{ sspr_nodename }}/sspr/public/forgottenusername">Forgotten Username</a>
-				</li>
-			</ul>
+            <h2>Manage Your Password</h2>
+            <ul>
+                <li><a href="https://{{ sspr_nodename }}/sspr/">Change Password, Update Profile, and more</a></li>
+                <li><a href="https://{{ sspr_nodename }}/sspr/public/forgottenpassword">Forgotten Password</a></li>
+                <li><a href="https://{{ sspr_nodename }}/sspr/public/forgottenusername">Forgotten Username</a></li>
+                <li><a href="https://go.carleton.edu/password-policy">Password Policy</a></li>
+            </ul>
 
-			<h3>Duo Two-Factor Authentication <small>(<a
-					href="https://go.carleton.edu/duo">?</a>)</small></h3>
-			<ul>
-				<li><a href="https://login-apps.carleton.edu/auth/auth_pref.php">Turn Two-Factor on (or off)</a></li>
-				<li><a href="https://login-apps.carleton.edu/auth/duo/">Manage your phones and devices</a></li>
-			</ul>
+            <h3>Duo Two-Factor Authentication <small>(<a
+                    href="https://go.carleton.edu/duo">?</a>)</small></h3>
+            <ul>
+                <li><a href="https://login-apps.carleton.edu/auth/auth_pref.php">Turn Two-Factor on (or off)</a></li>
+                <li><a href="https://login-apps.carleton.edu/auth/duo/">Manage your phones and devices</a></li>
+            </ul>
 
-			<h4>Log On To:</h4>
-			<ul>
-				<li>Google: <a href="https://mail.google.com/a/carleton.edu">Gmail</a> | <a
-						href="https://drive.google.com/a/carleton.edu/">Drive</a> | <a
-						href="https://calendar.google.com/a/carleton.edu/">Calendar</a></li>
-				<li><a href="https://moodle.carleton.edu/auth/shibboleth/index.php">Moodle</a></li>
-				<li><a href="https://portal.microsoft.com/">Microsoft Office 365</a></li>
-				<li><a href="https://login.carleton.edu/idp/profile/SAML2/Unsolicited/SSO?providerId=secure.bswift.com">Online
-					Employee Benefits Enrollment</a></li>
-				<li>
-					<a href="https://login.carleton.edu/idp/profile/SAML2/Unsolicited/SSO?providerId=https%3A%2F%2Fwww.linkedin.com%2Flearning%2FABEAAAAAAAN-ozEAAAAAA9UYKQHN16R2UvzA1UtF_QK5H5fNEzjo0w">LinkedIn
-						Learning (formerly Lynda.com)</a></li>
-			</ul>
+            <h4>Log On To:</h4>
+            <ul>
+                <li>Google: <a href="https://mail.google.com/a/carleton.edu">Gmail</a> | <a
+                        href="https://drive.google.com/a/carleton.edu/">Drive</a> | <a
+                        href="https://calendar.google.com/a/carleton.edu/">Calendar</a></li>
+                <li><a href="https://moodle.carleton.edu/auth/shibboleth/index.php">Moodle</a></li>
+            </ul>
 
-			<p><a href="https://go.carleton.edu/accounts">More information about accounts</a></p>
-		</div>
+            <p><a href="https://go.carleton.edu/accounts">More information about accounts</a></p>
+        </div>
 
-	</div>
-	<div id="footer">
-		<div id="maintainer">
-			this page maintained by <a href="https://www.carleton.edu/its/">Information Technology Services</a>
-			&bull;
-			email: <a href="mailto:helpdesk@carleton.edu">helpdesk@carleton.edu</a>
-		</div>
-	</div>
+    </div>
+    <div id="footer">
+        <div id="maintainer">
+            this page maintained by <a href="https://www.carleton.edu/its/">Information Technology Services</a>
+            &bull;
+            email: <a href="mailto:helpdesk@carleton.edu">helpdesk@carleton.edu</a>
+        </div>
+    </div>
 </div>
 
 </body>
