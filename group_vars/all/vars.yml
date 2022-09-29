@@ -14,6 +14,6 @@ sspr_applet_container_image:   "carleton-sspr-{{ sspr_app_version }}"
 sspr_applet_container_name:    "sspr"
 sspr_applicationpath:          /opt/microfocus/sspr/config
 
-tomcat_version:                9.0.65
+tomcat_version:                9.0.67
 tomcat_download_url:           "https://dlcdn.apache.org/tomcat/tomcat-9/v{{ tomcat_version }}/bin/apache-tomcat-{{ tomcat_version }}.tar.gz"
-tomcat_download_checksum:      "sha512:2ae846848b8436856be11cfa18d9c62caa06ca7d3134012b2e10cbf6078753c4af20cc5d37f7dc75f1779f5c59d7c033850b8626534c3ce7e389641a67963cf6"
+tomcat_download_checksum:      "sha512:f3c4841754640a21842de9d8ec4674b1a072d42f3ba9d1accea143a61ac4f77b06c789fbcc395c23ed2154ec7e7cd76e6d39743e544f7c6f2022967e8a2334d5"
