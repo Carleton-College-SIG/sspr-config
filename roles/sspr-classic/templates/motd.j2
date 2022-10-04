@@ -1,0 +1,13 @@
+{{ ansible_managed }}
+
+Host details:
+
+Host name:       {{ inventory_hostname }}
+Inventory file:  {{ inventory_file | regex_replace('^.*/','') }}
+SSPR version:    SSPR {{ sspr_app_version }}
+Other software:  tomcat, httpd, Amazon Corretto (OpenJDK)
+
+Intersting service names:
+    httpd
+    tomcat
+
