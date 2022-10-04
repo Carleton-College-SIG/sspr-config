@@ -19,12 +19,12 @@ all:
           sp_encrypt_cert: "uat-sp-encrypt-cert.pem.j2"
           sspr_nodename:   "password-uat.its.carleton.edu"
         password-prod.its.carleton.edu:
-          sp_entity_id:    "https://password-prod.its.carleton.edu/shibboleth"
+          sp_entity_id:    "https://password.carleton.edu/shibboleth"
           sp_signing_key:  "prod-sp-signing-key.pem.j2"
           sp_signing_cert: "prod-sp-signing-cert.pem.j2"
           sp_encrypt_key:  "prod-sp-encrypt-key.pem.j2"
           sp_encrypt_cert: "prod-sp-encrypt-cert.pem.j2"
-          sspr_nodename:   "password-prod.its.carleton.edu"
+          sspr_nodename:   "password.carleton.edu"
 
     sspr_hosts:
       hosts:
