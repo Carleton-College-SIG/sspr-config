@@ -26,6 +26,16 @@
     - { src: sspr.war, dest: /opt/tomcat/webapps/sspr.war, owner: root, group: tomcat, mode: "u=rw,go=r" }
     - { src: SSPRConfiguration.xml, dest: /opt/microfocus/sspr/config/SSPRConfiguration.xml, owner: root, group: tomcat, mode: "u=rw,g=r,o=" }
 
+- name: Update motd
+  ansible.builtin.template:
+    src:    motd.j2
+    dest:   /etc/motd
+    owner:  root
+    group:  root
+    mode:   "u=rw,go=r"
+    backup: yes
+  tags: motd
+
 - name: SSPR replace old hostname with new hostname (requires Ansible >= 2.4)
   ansible.builtin.replace:
     path: /opt/microfocus/sspr/config/SSPRConfiguration.xml
