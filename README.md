@@ -13,10 +13,12 @@ The following features are currently available for all users on SSPR.
 - Reset Forgotten Passwords
 - Recover Forgotten Username
 - Editing alternate email addresses
+
 The Help Desk Module allows ITS help desk workers/supervisors to do the following
 - Assist in resetting passwords for users
 - Clearing intruder lockout
 - Unlocking user accounts
+
 People assigned to administrative roles will be able to take the following actions
 - Create Password Policies
 - Check the status of SSPR through the configuration manager
