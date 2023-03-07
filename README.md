@@ -1,6 +1,30 @@
 # sspr-config
 Carleton SSPR configuration
 
+## SSPR-Configuration Introduction
+
+Self Service Password Reset (SSPR) is a web-based password management service. You can deploy Self Service Password Reset to any web server or application server that supports a web archive. By eliminating the user dependencies on help desk assistance for password reset and other tasks, SSPR will reduce the workload of Carleton ITS help desk.
+
+## Current Main Features
+The following features are currently available for all users on SSPR.
+- Landing page
+- Change Password Module
+- Setup Mobile App Authentication Module
+- Reset Forgotten Passwords
+- Recover Forgotten Username
+- Editing alternate email addresses
+
+The Help Desk Module allows ITS help desk workers/supervisors to do the following
+- Assist in resetting passwords for users
+- Clearing intruder lockout
+- Unlocking user accounts
+
+People assigned to administrative roles will be able to take the following actions
+- Create Password Policies
+- Check the status of SSPR through the configuration manager
+- Administrators can customize SSPR through the configuration editor
+
+
 ## Before you begin
 
 1. Clone this repository into a directory on the control host.
@@ -18,41 +42,35 @@ vault_ansible_ssh_user: <<your_username>>
 vault_ansible_become_password: "<<your_password>>"
 ```
 
-# Old info!!!!
+# Deployment Instructions
 
-## Using this repository
+## Installation
+Self Service Password Reset (SSPR) is a web application. Currently, we are deploying SSPR as a WAR file running on a remote linux server with an Apache Tomcat web server installed. The WAR file contains an Apache Tomcat implementation of the SSPR version 4.6 application.
 
-The SSPR configuration has credentials in it, and so to use it with version control we must first encrypt it.  We are using ansible-vault to encrypt the file, although we are not yet using Ansible for any other aspect of configuration.
+The user accounts SSPR manages are stored in a LDAP directory. The types of LDAP directories that SSPR supports are Active Directory, eDirectory, and Oracle Directory Server.
 
-1. The first step is to clone this repository, then grab the password from LastPass (stored as "password.carleton.edu Ansible vault pw") and save it in the cloned repository as ".vaultpw".  (This is the same place it is stored in a typical Carleton Ansible configuration repository.)
-1. Update the SSPR configuration within the SSPR application:
+## Administrator Console
+SSPR provides system administrators with an administrative console. Through the console, administrators can manage and configure all aspects of SSPR. Some important features include, importing and exporting the configuration files through the configuration manager, keeping track of the activity of the system through the administration dashboard, and editing the configuration through a UI in the configuration editor.
 
-    https://password.carleton.edu/sspr/private/config/editor
+For further instructions and notes, refer to the official Microfocus documentation for SSPR at https://www.netiq.com/documentation/self-service-password-reset-46/
 
-1. After the changes are saved in the application, download the configuration file from the configuration manager:
+## Using this Repository
+The configuration files for SSPR are managed in this github repository. All changes made to the production environment should be pushed to this directory. Any changes made in the control host can be reflected to the servers via ansible. Any changes made directly to the servers or via the configuration editor will be lost unless they are pushed to the github repository.
 
-    https://password.carleton.edu/sspr/private/config/manager
+In order to reflect the changes you made to the servers running SSPR, you can run the playbook sspr-classic.yml in the main repository.
+1. Make sure you are in the correct repository on your control host with the changes you have made. The file sspr-classic.yml should be in the current directory.
+1. Run “ansible-playbook sspr-classic.yml" on the command line.
+1. The playbook will execute and reflect any changes found in your repository to the files in the SSPR servers.
 
-1. Copy the downloaded file into the `files/` directory within the configuration.
+The SSPR Configuration file (SSPRConfiguration.xml) has credentials in it, and so to use it with version control we must first encrypt it. We are using ansible-vault to encrypt the file. If you make changes to the configuration of SSPR via the configuration editor follow the steps below to encrypt the file SSPRConfiguration.xml.
+1. Download the configuration file from the configuration manager.
+1. Copy the downloaded configuration file to roles/files/ directory
+1. Encrypt with ansible-vault: ansible-vault encrypt roles/files/SSPRConfiguration.xml
 
-1. Encrypt with ansible-vault:
-    `> ansible-vault encrypt files/SSPRConfiguration.xml`
+## prod vs. dev vs. uat
 
-To restore a previous version of the configuration:
+The configuration of SSPR will be found in a file called SSPRConfiguration.xml. Currently we have the prod, dev, and uat environment. The dev environment will be where we will initially make any proposed changes to the configuration of SSPR. The prod environment will be the live version of SSPR available to all users. Before any changes made in dev are pushed to the prod environment, they should be user tested in the uat environment.
 
-1. Download the current configuration, in case you need to refer to it later.
-1. Copy the list of domain controllers being used, as these occasionally change.  (You can also get it from the configuration copy you just downloaded.)
-1. Check out the repository at the commit you want to recover.
-1. Decrypt the configuration with ansible-vault:
-    `> ansible-vault decrypt files/SSPRConfiguration.xml`
+In order to make changes to a certain server, we can add the --limit  option when executing the ansible playbook. For example, to make changes only to the dev server, you could run the following in the command line: ```ansible-playbook --limit=password-dev.its.* sspr-classic.yml```
 
-1. Upload the configuration using the appliance's configuration manager:
 
-    https://password.carleton.edu/sspr/private/config/manager
-
-1. Check the list of domain controllers being used.  Download the current certs from the domain controllers.
-1. Re-encrypt the file in the repository, or restore the encrypted version within git.  See `git status` for the exact commands.
-
-## Production vs. dev
-
-The production configuration is in `files/SSPRConfiguration.xml`.  At the time of this writing, there are no development or test instances.  Documentation for those configurations should be created when those servers are established. 
