@@ -31,3 +31,8 @@ all:
         password-dev.its.carleton.edu:
         password-uat.its.carleton.edu:
         password-prod.its.carleton.edu:
+
+    certbot_hosts:
+      hosts:
+        password-dev.its.carleton.edu:
+

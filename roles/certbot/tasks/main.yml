@@ -17,6 +17,10 @@
 #    use: dnf
 #  register: snapd_install
 
+- name: Test Variables Part1
+  debug:
+    var: "'{{ ssl_certificate_key_file_path }}'"
+
 - name: Ensure snapd is enabled
   systemd:
     name: snapd.socket
@@ -73,4 +77,11 @@
   when: not letsencrypt_cert.stat.exists
   ignore_errors: "{{ ansible_check_mode }}"
 
+#- name: Change permissions on key file group
+#  file:
+#    path: "/etc/letsencrypt/live/{{ certificate_name }}/privkey.pem"
+#    owner: root
+#    group: "{{ certbot_group }}"
+#    mode: u=rw,g=r,o=
+#  ignore_errors: "{{ ansible_check_mode }}"
 

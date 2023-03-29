@@ -86,7 +86,7 @@ SSLProxyCipherSuite PROFILE=SYSTEM
 #   parallel.
 #SSLCertificateFile /etc/pki/tls/certs/localhost.crt
 #SSLCertificateFile /etc/pki/tls/certs/password.carleton.edu.cer
-SSLCertificateFile /etc/letsencrypt/live/password-dev/fullchain.pem
+SSLCertificateFile "{{ ssl_certificate_file_path }}"
 
 #   Server Private Key:
 #   If the key is not combined with the certificate, use this
@@ -96,7 +96,7 @@ SSLCertificateFile /etc/letsencrypt/live/password-dev/fullchain.pem
 #   ECC keys, when in use, can also be configured in parallel
 #SSLCertificateKeyFile /etc/pki/tls/private/localhost.key
 #SSLCertificateKeyFile /etc/pki/tls/private/password.carleton.edu.key
-SSLCertificateKeyFile /etc/letsencrypt/live/password-dev/privkey.pem
+SSLCertificateKeyFile "{{ ssl_certificate_key_file_path }}"
 
 #   Server Certificate Chain:
 #   Point SSLCertificateChainFile at a file containing the
@@ -107,7 +107,7 @@ SSLCertificateKeyFile /etc/letsencrypt/live/password-dev/privkey.pem
 #   certificate for convenience.
 #SSLCertificateChainFile /etc/pki/tls/certs/server-chain.crt
 #SSLCertificateChainFile /etc/pki/tls/certs/inCommon-SHA2.pem
-SSLCertificateChainFile /etc/letsencrypt/live/password-dev/chain.pem
+SSLCertificateChainFile "{{ ssl_certificate_chain_file_path }}" 
 
 #   Certificate Authority (CA):
 #   Set the CA certificate verification path where to find CA

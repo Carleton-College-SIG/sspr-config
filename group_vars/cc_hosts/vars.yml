@@ -1,4 +1,4 @@
-# file: group_vars/all/vars.yml
+# file: group_vars/cc_hosts/vars.yml
 #
 
 # Define the vault_* version of these variables

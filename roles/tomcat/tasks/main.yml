@@ -30,6 +30,7 @@
     url:      "{{ tomcat_download_url }}"
     dest:     "/opt/dist"
     checksum: "{{ tomcat_download_checksum }}"
+  ignore_errors: "{{ ansible_check_mode }}"  
 
 - name: Extract Tomcat
   unarchive:
@@ -63,4 +64,4 @@
     name:    tomcat
     enabled: yes
     state:   started
-
+  ignore_errors: "{{ ansible_check_mode }}"
