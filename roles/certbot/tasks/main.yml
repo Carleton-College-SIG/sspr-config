@@ -41,7 +41,7 @@
   failed_when: false
   when: snapd_install is changed
 
- Install certbot via snapd
+# Install certbot via snapd
 - name: Install certbot via snap
   snap:
     name: certbot
