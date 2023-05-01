@@ -11,6 +11,7 @@ all:
           sp_encrypt_key:  "dev-sp-encrypt-key.pem.j2"
           sp_encrypt_cert: "dev-sp-encrypt-cert.pem.j2"
           sspr_nodename:   "password-dev.its.carleton.edu"
+          sspr_config_file: "SSPRConfiguration-dev.xml"
         password-uat.its.carleton.edu:
           sp_entity_id:    "https://password-uat.its.carleton.edu/shibboleth"
           sp_signing_key:  "uat-sp-signing-key.pem.j2"
@@ -18,6 +19,7 @@ all:
           sp_encrypt_key:  "uat-sp-encrypt-key.pem.j2"
           sp_encrypt_cert: "uat-sp-encrypt-cert.pem.j2"
           sspr_nodename:   "password-uat.its.carleton.edu"
+          sspr_config_file: "SSPRConfiguration-uat.xml"
         password-prod.its.carleton.edu:
           sp_entity_id:    "https://password.carleton.edu/shibboleth"
           sp_signing_key:  "prod-sp-signing-key.pem.j2"
@@ -25,6 +27,7 @@ all:
           sp_encrypt_key:  "prod-sp-encrypt-key.pem.j2"
           sp_encrypt_cert: "prod-sp-encrypt-cert.pem.j2"
           sspr_nodename:   "password.carleton.edu"
+          sspr_config_file: "SSPRConfiguration-prod.xml"
 
     sspr_hosts:
       hosts:
