@@ -24,7 +24,7 @@
   notify: restart tomcat
   with_items:
     - { src: sspr.war, dest: /opt/tomcat/webapps/sspr.war, owner: root, group: tomcat, mode: "u=rw,go=r" }
-    - { src: SSPRConfiguration.xml, dest: /opt/microfocus/sspr/config/SSPRConfiguration.xml, owner: root, group: tomcat, mode: "u=rw,g=r,o=" }
+    - { src: "{{ sspr_config_file }}", dest: /opt/microfocus/sspr/config/SSPRConfiguration.xml, owner: root, group: tomcat, mode: "u=rw,g=r,o=" }
 
 - name: Update motd
   ansible.builtin.template:
