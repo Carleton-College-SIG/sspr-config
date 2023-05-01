@@ -1,0 +1,24 @@
+---
+# file: roles/sspr-classic/tasks/clean.yml
+
+# Probably don't need to update the old hostname
+
+# Need back up motd file?
+
+- name: Reverse SSPR file uploads
+  file:
+    path: "{{ item.dest }}"
+    state: absent
+  with_items:
+    - { dest: /opt/tomcat/webapps/sspr.war }
+    - { dest: /opt/microfocus/sspr/config/SSPRConfiguration.xml }
+
+- name: Reverse Create directories
+  file:
+    path: "{{ item.path }}"
+    state: absent
+  with_items:
+    - { path: /opt/microfocus }
+    - { path: /opt/microfocus/sspr }
+    - { path: /opt/microfocus/sspr/config }
+

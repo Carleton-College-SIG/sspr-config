@@ -1,0 +1,32 @@
+---
+# file: cleanup.yml
+# # Reset changes made by sspr-classic.yml for a fresh rebuild
+
+- hosts: sspr_hosts
+  become: yes
+  tasks:
+  - name: Include clean tasks for each role (certbot_hosts)
+    include_tasks: "roles/{{ role_name }}/tasks/clean.yml"
+    loop:
+      - httpd-classic
+      - shibd-classic
+      - certbot
+      #- sspr-classic
+      #- tomcat
+      - java11-corretto
+    loop_control:
+      loop_var: role_name
+    when: "'certbot_hosts' in group_names"
+
+  - name: Include clean tasks for each role (not certbot_hosts)
+    include_tasks: "roles/{{ role_name }}/tasks/clean.yml"
+    loop:
+      - httpd-classic
+      - shibd-classic
+      - ssl-classic
+      #- sspr-classic
+      #- tomcat
+      - java11-corretto
+    loop_control:
+      loop_var: role_name
+    when: "'certbot_hosts' not in group_names"

@@ -2,20 +2,20 @@
 # roles/certbot/tasks/main.yml
 
 # EPEL Repository is needed for snap packages for Rocky Linux
-#- name: Ensure EPEL repository is installed
-#  package:
-#    name: epel-release
-#    state: present
-#    use: dnf
-#  register: epel_install
+- name: Ensure EPEL repository is installed
+  package:
+    name: epel-release
+    state: present
+    use: dnf
+  register: epel_install
 
 # Install snapd
-#- name: Ensure snapd is installed
-#  package:
-#    name: snapd
-#    state: present
-#    use: dnf
-#  register: snapd_install
+- name: Ensure snapd is installed
+  package:
+    name: snapd
+    state: present
+    use: dnf
+  register: snapd_install
 
 - name: Test Variables Part1
   debug:
@@ -35,21 +35,21 @@
   when: ansible_os_family != "Debian"
   ignore_errors: "{{ ansible_check_mode }}"
 
-#- name: Update snap after install
-#  shell: snap install core; snap refresh core
-#  changed_when: true
-#  failed_when: false
-#  when: snapd_install is changed
+- name: Update snap after install
+  shell: snap install core; snap refresh core
+  changed_when: true
+  failed_when: false
+  when: snapd_install is changed
 
-# Install certbot via snapd
-#- name: Install certbot via snap
-#  snap:
-#    name: certbot
-#    classic: true
-#    state: "present"
-#  environment:
-#    SNAP_DEBUG: "1"
-#  ignore_errors: "{{ ansible_check_mode }}"
+ Install certbot via snapd
+- name: Install certbot via snap
+  snap:
+    name: certbot
+    classic: true
+    state: "present"
+  environment:
+    SNAP_DEBUG: "1"
+  ignore_errors: "{{ ansible_check_mode }}"
 
 - name: Symlink certbot into place.
   file:

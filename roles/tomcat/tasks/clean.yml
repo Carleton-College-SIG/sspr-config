@@ -1,0 +1,47 @@
+---
+# file: roles/tomcat/tasks/clean.yml
+
+- name: Stop Tomcat service
+  ansible.builtin.service:
+    name: tomcat
+    state: stopped
+  ignore_errors: yes
+
+- name: Reverse Tomcat customization
+  file:
+    path: "{{ item.dest }}"
+    state: absent
+  with_items:
+    - { dest: "/opt/tomcat/bin/setenv.sh" }
+    - { dest: "/etc/systemd/system/tomcat.service" }
+
+- name: Remove symlink
+  file:
+    path: "/opt/tomcat"
+    state: absent
+
+- name: Remove extracted directory
+  file:
+    path: "/opt/apache-tomcat-{{ tomcat_version }}"
+    state: absent
+
+- name: Remove downloaded file
+  file:
+    path: "/opt/dist/apache-tomcat-{{ tomcat_version }}.tar.gz"
+    state: absent
+
+- name: Remove directory
+  file:
+    path: /opt/dist
+    state: absent
+
+- name: Remove Tomcat user
+  user:
+    name: tomcat
+    state: absent
+
+- name: Remove Tomcat group
+  group:
+    name: tomcat
+    state: absent
+

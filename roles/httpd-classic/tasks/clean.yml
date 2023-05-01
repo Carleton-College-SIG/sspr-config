@@ -1,0 +1,68 @@
+---
+# file: roles/httpd-classic/tasks/clean.yml
+
+- name: Clean up sso test files
+  file:
+    path: "{{ item }}"
+    state: absent
+  tags: [ never, disable_sso_test ]
+  with_items:
+    - /etc/httpd/conf.d/testsso.conf
+    - /var/www/html/secure/index.html
+    - /var/www/cgi-bin/env.pl
+    - /var/www/html/secure
+
+- name: Remove sso test directory
+  file:
+    path: /var/www/html/secure
+    state: absent
+  tags: [ never, enable_sso_test ]
+
+- name: Stop httpd
+  service:
+    name: httpd
+    state: stopped
+    enabled: no
+
+#- name: Enable selinux
+#  selinux:
+#    state: enforcing
+#  tags: selinux
+
+- name: Remove conf files
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - /etc/httpd/conf.d/ssl.conf
+    - /etc/httpd/conf.d/shib.conf
+    - /etc/httpd/conf.d/revproxy.conf
+    - /etc/httpd/conf/httpd.conf
+    - /etc/httpd/conf.d/redirect.conf
+    - /var/www/html/index.html
+
+- name: Uninstall mod_ssl
+  dnf:
+    name: mod_ssl
+    state: absent
+  when: not ansible_check_mode
+
+- name: Uninstall httpd
+  dnf:
+    name: httpd 
+    state: absent
+  when: not ansible_check_mode
+
+- name: Remove apache user
+  user:
+    name: apache
+    state: absent
+    #remove: yes
+
+- name: Remove apache group
+  group:
+    name: apache
+    state: absent
+    system: yes
+
+

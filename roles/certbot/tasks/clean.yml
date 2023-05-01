@@ -1,0 +1,63 @@
+---
+# file: roles/certbot/tasks/clean.yml
+
+- name: load variables
+  include_vars: "../vars/main.yml"
+
+- name: Set Certbot script variable.
+  set_fact:
+    certbot_script: /usr/bin/certbot
+
+- name: Check if certificate already exists.
+  stat:
+    path: "/etc/letsencrypt/live/{{ certificate_name }}/cert.pem"
+  register: letsencrypt_cert
+
+- name: revoke certificate with certbot if exists
+  command: "{{ certbot_script }} revoke --cert-name {{ ansible_hostname }} --delete-after-revoke"
+  when: letsencrypt_cert.stat.exists
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- name: Remove symlink for certbot
+  file:
+    path: /usr/bin/certbot
+    state: absent
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- name: Remove certbot via snapd
+  snap:
+    name: certbot
+    classic: true
+    state: "absent"
+  environment:
+    SNAP_DEBUG: "1"
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- name: Remove classic snap support
+  file:
+    path: /snap
+    state: absent
+  when: ansible_os_family != "Debian"
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- name: Stop and disable snapd.socket
+  systemd:
+    name: snapd.socket
+    enabled: false
+    state: stopped
+
+- name: Remove snapd package
+  package:
+    name: snapd
+    state: absent
+    use: dnf
+  when: not ansible_check_mode
+
+- name: EPEL repository uninstall
+  package:
+    name: epel-release
+    state: absent
+    use: dnf
+  register: epel_install
+  when: not ansible_check_mode
+

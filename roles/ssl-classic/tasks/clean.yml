@@ -1,0 +1,12 @@
+---
+# file: roles/ssl-classic/tasks/clean.yml
+
+- name: Remove SSL certs and keys
+  file:
+    path: "{{ item.dest }}"
+    state: absent
+  with_items:
+    - { dest: "{{ ssl_certificate_file_path }}" }
+    - { dest: "{{ ssl_certificate_chain_file_path }}" }
+    - { dest: "{{ ssl_certificate_key_file_path }}" }
+    - { dest: /etc/pki/tls/private/password.carleton.edu.csr }
