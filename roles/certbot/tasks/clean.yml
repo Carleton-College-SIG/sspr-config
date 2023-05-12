@@ -4,6 +4,12 @@
 - name: load variables
   include_vars: "../vars/main.yml"
 
+- name: Remove cron job
+  file:
+    path: /etc/cron.daily/etc-cron.daily-certbot.sh
+    state: absent  
+  tags: foo2
+
 - name: Set Certbot script variable.
   set_fact:
     certbot_script: /usr/bin/certbot

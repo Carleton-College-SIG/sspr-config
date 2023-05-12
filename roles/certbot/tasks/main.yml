@@ -50,6 +50,10 @@
   environment:
     SNAP_DEBUG: "1"
   ignore_errors: "{{ ansible_check_mode }}"
+  register: snap_result
+  until: snap_result is succeeded
+  retries: 3
+  delay: 10
 
 - name: Symlink certbot into place.
   file:
@@ -77,11 +81,10 @@
   when: not letsencrypt_cert.stat.exists
   ignore_errors: "{{ ansible_check_mode }}"
 
-#- name: Change permissions on key file group
-#  file:
-#    path: "/etc/letsencrypt/live/{{ certificate_name }}/privkey.pem"
-#    owner: root
-#    group: "{{ certbot_group }}"
-#    mode: u=rw,g=r,o=
-#  ignore_errors: "{{ ansible_check_mode }}"
-
+# Cron job for auto-renewal?
+- name: Create Cron job for Auto-Renewal of Certificate
+  template:
+    src: etc-cron.daily-certbot.sh.j2
+    dest: /etc/cron.daily/etc-cron.daily-certbot.sh
+    mode: "u=rwx,g=rw,o=r" 
+  tags: foo2

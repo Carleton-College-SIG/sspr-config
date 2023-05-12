@@ -11,8 +11,8 @@
       - httpd-classic
       - shibd-classic
       - certbot
-      #- sspr-classic
-      #- tomcat
+      - sspr-classic
+      - tomcat
       - java11-corretto
     loop_control:
       loop_var: role_name
@@ -24,8 +24,8 @@
       - httpd-classic
       - shibd-classic
       - ssl-classic
-      #- sspr-classic
-      #- tomcat
+      - sspr-classic
+      - tomcat
       - java11-corretto
     loop_control:
       loop_var: role_name

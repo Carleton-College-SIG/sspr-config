@@ -11,4 +11,6 @@ cert_key_type: "{{ vault_cert_key_type }}"
 
 certbot_create_command: "certbot certonly --manual --agree-to --no-eff-email --email {{ admin_email }}  --key-type {{ cert_key_type }} --server {{ cert_server_name }} --eab-kid {{ cert_eab_kid }} --eab-hmac-key {{ cert_eab_hmac_key }} --domain {{ domain_name }},login.carleton.edu --cert-name {{ certificate_name }}"
 
+certbot_renew_command: "certbot certonly --manual --keep-until-expiring --agree-to --no-eff-email --email {{ admin_email }}  --key-type {{ cert_key_type }} --server {{ cert_server_name }} --eab-kid {{ cert_eab_kid }} --eab-hmac-key {{ cert_eab_hmac_key }} --domain {{ domain_name }},login.carleton.edu --cert-name {{ certificate_name }}"
+
 certbot_group: "apache"
