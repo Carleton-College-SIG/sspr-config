@@ -81,6 +81,15 @@
   when: not letsencrypt_cert.stat.exists
   ignore_errors: "{{ ansible_check_mode }}"
 
+- name: Change permissions on key file group
+  file:
+    path: "/etc/letsencrypt/live/{{ certificate_name }}/privkey.pem"
+    owner: root
+    group: "{{ certbot_group }}"
+    mode: u=rw,g=r,o=
+  ignore_errors: "{{ ansible_check_mode }}"
+  
+  
 # Cron job for auto-renewal?
 - name: Create Cron job for Auto-Renewal of Certificate
   template:
