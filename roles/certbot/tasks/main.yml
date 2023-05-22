@@ -17,10 +17,6 @@
     use: dnf
   register: snapd_install
 
-- name: Test Variables Part1
-  debug:
-    var: "'{{ ssl_certificate_key_file_path }}'"
-
 - name: Ensure snapd is enabled
   systemd:
     name: snapd.socket
