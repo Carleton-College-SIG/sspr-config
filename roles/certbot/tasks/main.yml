@@ -62,6 +62,11 @@
   set_fact:
     certbot_script: /usr/bin/certbot
 
+- name: Certbot | Upload cli.ini
+  template:
+    src: cli.ini.j2
+    dest: /etc/letsencrypt/cli.ini
+
 # Check if Certificate already exists
 - name: Check if certificate already exists.
   stat:
@@ -90,6 +95,6 @@
 - name: Create Cron job for Auto-Renewal of Certificate
   template:
     src: etc-cron.daily-certbot.sh.j2
-    dest: /etc/cron.daily/etc-cron.daily-certbot.sh
+    dest: /etc/cron.daily/certbot.sh
     mode: "u=rwx,g=rw,o=r" 
   tags: foo2

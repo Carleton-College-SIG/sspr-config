@@ -2,11 +2,17 @@
 # file: roles/certbot/tasks/clean.yml
 
 - name: load variables
-  include_vars: "../vars/main.yml"
+  include_vars: "../vars/main/main.yml"
+
+- name: Remove old cron job
+  file:
+    path: /etc/cron.daily/etc-cron.daily-certbot.sh
+    state: absent
+  tags: foo2
 
 - name: Remove cron job
   file:
-    path: /etc/cron.daily/etc-cron.daily-certbot.sh
+    path: /etc/cron.daily/certbot.sh
     state: absent  
   tags: foo2
 

@@ -1,0 +1,20 @@
+---
+# roles/certbot/vars/main.yml
+
+admin_email: "incommon-tech@carleton.edu"
+domain_name: "{{ ansible_fqdn }}"
+certificate_name: "{{ ansible_hostname }}"
+cert_server_name: "https://acme.sectigo.com/v2/InCommonECCOV"
+cert_eab_kid: "{{ vault_cert_eab_kid }}"
+cert_eab_hmac_key: "{{ vault_cert_eab_hmac_key }}"
+cert_key_type: "{{ vault_cert_key_type }}"
+
+certbot_create_command: "certbot certonly --no-eff-email --domain {{ domain_name }},login.carleton.edu --cert-name {{ certificate_name }}"
+
+#certbot_create_command: "certbot certonly --manual --agree-to --no-eff-email --email {{ admin_email }}  --key-type {{ cert_key_type }} --server {{ cert_server_name }} --eab-kid {{ cert_eab_kid }} --eab-hmac-key {{ cert_eab_hmac_key }} --domain {{ domain_name }},login.carleton.edu --cert-name {{ certificate_name }}"
+
+certbot_renew_command: "certbot certonly --keep-until-expiring --domain {{ domain_name }},login.carleton.edu --cert-name {{ certificate_name }}"
+
+#certbot_renew_command: "certbot certonly --manual --keep-until-expiring --agree-to --no-eff-email --email {{ admin_email }}  --key-type {{ cert_key_type }} --server {{ cert_server_name }} --eab-kid {{ cert_eab_kid }} --eab-hmac-key {{ cert_eab_hmac_key }} --domain {{ domain_name }},login.carleton.edu --cert-name {{ certificate_name }}"
+
+certbot_group: "apache"
