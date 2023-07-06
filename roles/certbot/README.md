@@ -5,7 +5,7 @@ Sectigo Certificate Manager supports the Automatic Certificate Management Enviro
 
 ## Environment
 The deployment includes configuring Certbot on the following servers:
-### 1. SSPR Servers:
+### SSPR Servers:
 - Operating System: Rocky 8/9 Linux
 - Web Server: Apache Tomcat
 - Playbook: sspr-classic.yml
@@ -51,4 +51,7 @@ this playbook is to prepare a clean start environment in case of any software up
 **Important:** Please note that running the cleanup playbooks will revoke and delete the
 existing SSL certificate located at `/etc/letsencrypt/`. Exercise caution when executing this playbook to avoid unintended certificate revocation.
 
-
+## Known Issues
+- The epel repository when installed was not installed in some servers. This repo contains the task to enable the repository. Please use it in the case that it is needed in other cases.
+- Sometimes after installation, the playbook stalls. In that case try cancelling the execution and running the playbook again. It may solve the problem.
+- We have found that when installing certbot on password-dev, the /etc/letsencrypt/ directory does not generate and causes errors in subsequent tasks. In this case try going to the target host and run sudo certbot. This may create the directory for you and you can run the playbook again. 

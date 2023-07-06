@@ -9,6 +9,14 @@
     use: dnf
   register: epel_install
 
+- name: Ensure EPEL repository is enabled
+  ini_file:
+    path: /etc/yum.repos.d/epel.repo
+    section: epel
+    option: enabled
+    value: "1"
+    backup: yes
+
 # Install snapd
 - name: Ensure snapd is installed
   package:
