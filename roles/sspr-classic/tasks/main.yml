@@ -41,3 +41,4 @@
     path: /opt/microfocus/sspr/config/SSPRConfiguration.xml
     regexp: password(-dev\.its|-uat\.its|-prod\.its)?\.carleton\.edu
     replace: "{{ sspr_nodename }}"
+  ignore_errors: '{{ ansible_check_mode }}'

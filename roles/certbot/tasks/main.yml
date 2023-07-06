@@ -74,8 +74,8 @@
   register: letsencrypt_cert
 
 # Generate new certificate if one does not exist
-- name: Load encrypted variables
-  include_vars: encrypted_vars.yml
+#- name: Load encrypted variables
+#  include_vars: encrypted_vars.yml
 
 - name: Generate new certificate if one does not exist
   command: "{{ certbot_create_command }}"
