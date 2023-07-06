@@ -54,4 +54,6 @@ existing SSL certificate located at `/etc/letsencrypt/`. Exercise caution when e
 ## Known Issues
 - The epel repository when installed was not installed in some servers. This repo contains the task to enable the repository. Please use it in the case that it is needed in other cases.
 - Sometimes after installation, the playbook stalls. In that case try cancelling the execution and running the playbook again. It may solve the problem.
-- We have found that when installing certbot on password-dev, the /etc/letsencrypt/ directory does not generate and causes errors in subsequent tasks. In this case try going to the target host and run sudo certbot. This may create the directory for you and you can run the playbook again. 
+- We have found that when installing certbot on password-dev, the /etc/letsencrypt/ directory does not generate and causes errors in subsequent tasks. In this case try going to the target host and run sudo certbot. This may create the directory for you and you can run the playbook again.
+- The ansible variable {{ ansible\_fqdn }} is our preferred variable to get the full DNS name for certificate generation. However, we have found that in password-dev the fqdn variable only contains the hostname. We have changed the variable for the domain name in the vars/main/main.yml file.
+ 
