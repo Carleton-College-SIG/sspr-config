@@ -70,6 +70,17 @@
   set_fact:
     certbot_script: /usr/bin/certbot
 
+- name: Certbot | check if /etc/letsencrypt/ exists
+  stat:
+    path: /etc/letsencrypt
+  register: directory_exists
+
+- name: Certbot | Create /etc/letsencrypt
+  file:
+    path: /etc/letsencrypt
+    state: directory
+  when: not directory_exists|bool   
+
 - name: Certbot | Upload cli.ini
   template:
     src: cli.ini.j2

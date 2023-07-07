@@ -2,7 +2,7 @@
 # roles/certbot/vars/main.yml
 
 admin_email: "incommon-tech@carleton.edu"
-domain_name: "{{ ansible_hostname }}.its.carleton.edu"
+domain_name: "{{ inventory_hostname }}"
 certificate_name: "{{ ansible_hostname }}"
 cert_server_name: "https://acme.sectigo.com/v2/InCommonECCOV"
 cert_eab_kid: "{{ vault_cert_eab_kid }}"
