@@ -1,0 +1,6 @@
+---
+# file: roles/certbot/meta/main.yml
+
+dependencies:
+  - { role: httpd-user }
+

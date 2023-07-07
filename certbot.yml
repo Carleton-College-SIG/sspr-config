@@ -1,0 +1,10 @@
+---
+# file: certbot.yml
+
+- hosts: sspr_hosts 
+  become: yes
+  handlers:
+    - include: handlers/handlers.yml
+  roles:
+    - certbot
+

@@ -1,0 +1,19 @@
+---
+# file: roles/java11-corretto/tasks/main.yml
+
+- name: Uninstall java11
+  dnf:
+    name: java-11-amazon-corretto-devel
+    state: absent
+  when: not ansible_check_mode
+
+- name: Uninstall repo
+  file:
+    path: /etc/yum.repos.d/corretto.repo
+    state: absent
+
+- name: Remove key file
+  rpm_key:
+    state: absent
+    key: https://yum.corretto.aws/corretto.key
+

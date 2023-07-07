@@ -24,6 +24,7 @@
     name: java-11-amazon-corretto-devel
     state: present
     allow_downgrade: yes
+  ignore_errors: '{{ ansible_check_mode }}'
 
 # - name: java8 | Install jdk
 #   yum:

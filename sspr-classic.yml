@@ -11,6 +11,9 @@
       tags: corretto
     - tomcat
     - sspr-classic
-    - ssl-classic
+    - role: certbot
+      when: "'certbot_hosts' in group_names"
+    - role: ssl-classic
+      when: "'certbot_hosts' not in group_names"
     - shibd-classic
     - httpd-classic

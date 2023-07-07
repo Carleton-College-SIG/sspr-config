@@ -1,0 +1,43 @@
+---
+# file: roles/shibd-classic/tasks/clean.yml
+
+- name: Disable and stop shibd service
+  service:
+    name: shibd
+    state: stopped
+    enabled: no
+
+- name: Remove changed shibd configuration files
+  file:
+    path: "/etc/shibboleth/{{ item.dest }}"
+    state: absent
+  with_items:
+    - { dest: inc-md-cert-mdq.pem }
+    - { dest: shibboleth2.xml }
+    - { dest: sp-signing-cert.pem }
+    - { dest: sp-signing-key.pem }
+    - { dest: sp-encrypt-cert.pem }
+    - { dest: sp-encrypt-key.pem }
+
+- name: Uninstall shibboleth
+  dnf:
+    name: shibboleth
+    state: absent
+  when: not ansible_check_mode
+
+- name: Remove shibboleth repo
+  file:
+    path: /etc/yum.repos.d/shibboleth.repo
+    state: absent
+
+- name: Remove shibd user
+  user:
+    name: shibd
+    state: absent
+
+- name: Remove shibd group
+  group:
+    name: shibd
+    state: absent
+    system: yes
+

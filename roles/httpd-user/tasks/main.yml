@@ -1,0 +1,17 @@
+---
+# file: roles/httpd-user/tasks/main.yml
+
+- name: Create apache group
+  group: name=apache state=present system=yes
+
+- name: Create apache user
+  user:
+    name:       apache
+    state:      present
+    comment:    'Apache httpd Web Server'
+    createhome: no
+    group:      apache
+    home:       /usr/share/httpd
+    shell:      /usr/sbin/nologin
+    system:     yes
+

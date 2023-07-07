@@ -30,6 +30,7 @@
     url:      "{{ tomcat_download_url }}"
     dest:     "/opt/dist"
     checksum: "{{ tomcat_download_checksum }}"
+  ignore_errors: "{{ ansible_check_mode }}"  
 
 - name: Extract Tomcat
   unarchive:
@@ -39,12 +40,14 @@
     group:      tomcat
     mode:       "u=rwX,go=rX"
     remote_src: yes
+  ignore_errors: '{{ ansible_check_mode }}'
 
 - name: Create symlink
   file:
     src:   "/opt/apache-tomcat-{{ tomcat_version }}"
     dest:  "/opt/tomcat"
     state: link
+  ignore_errors: '{{ ansible_check_mode }}'
 
 - name: Tomcat customization
   template:
@@ -63,4 +66,4 @@
     name:    tomcat
     enabled: yes
     state:   started
-
+  ignore_errors: "{{ ansible_check_mode }}"
