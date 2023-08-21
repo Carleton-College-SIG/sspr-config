@@ -8,6 +8,7 @@
     group: "{{ item.group | default('root') }}"
     mode:  "{{ item.mode | default('u=rw,go=') }}"
     backup: yes
+  tags: certs
   with_items:
     - { src: password.carleton.edu.cer.j2, dest: certs/password.carleton.edu.cer, mode: "u=rw,go=r" }
     - { src: inCommon-SHA2.pem.j2, dest: certs/inCommon-SHA2.pem, mode: "u=rw,go=r" }
