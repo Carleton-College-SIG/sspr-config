@@ -29,7 +29,7 @@ People assigned to administrative roles will be able to take the following actio
 
 1. Clone this repository into a directory on the control host.
 1. Create the file .vaultpw with the contents of the LastPass item named "password.carleton.edu Ansible vault pw". Set permissions with chmod go= .vaultpw.
-1. ansible-vault create group_vars/cc_hosts/ansible_ssh_sudo_user.yml and add the following lines, substituting your actual username and password:
+1. ansible-vault create `group_vars/cc_hosts/ansible_ssh_sudo_user.yml` and add the following lines, substituting your actual username and password:
 
 ```
 # file: inventory/group_vars/all/ansible_ssh_sudo_user.yml
@@ -41,6 +41,53 @@ People assigned to administrative roles will be able to take the following actio
 vault_ansible_ssh_user: <<your_username>>
 vault_ansible_become_password: "<<your_password>>"
 ```
+
+# Upgrades
+
+The ansible content in this repository has only been engineered with an intial deployment in mind.
+Accordingly, upgrades will typically not involve simple invocation via ansible, as such would over-write critical content.
+
+Since the application will only be infrequently updated, its likely that the AD certs involved will have been renewed.
+In order for these certs to be re-synchronized, they must be acquired via the management console in the application,
+which can only be accessed when the application is operating.
+
+Additionally, the application's local config + data must be preserved, and since a deployment via ansible re-initializes
+some of that config + data, that portion of the ansible content (the `sspr-classic` role) has been commented out of the
+`sspr-classic.yml` playbook.
+
+## Upgrade procedure
+-	If a new version of tomcat is involved, change the tomcat version in `group_vars/all/vars.yml`
+-	Run the ansible playbook (mostly to get the new tomcat version deployed)
+-	Copy the new `sspr.war` file into `/opt/tomcat/webapps`
+-	If new AD certs are to be acquired, SSH to the VM and, as root:
+	-	Stop tomcat:  `systemctl stop tomcat`
+	-	Change `configIsEditable` to `true` in `/opt/microfocus/sspr/config/SSPRConfiguration.xml`
+	-	Unlock the config: `sudo -H -u tomcat /usr/local/bin/sspr` ... `sspr` script:
+		```bash
+		#!/bin/bash
+		function ssprCommand {
+			JAVA_HOME=/etc/alternatives/jre
+			JAVA_OPTS="-Xmx1024m -Dsspr.applicationPath=/opt/tomcat/webapps/sspr"
+			cd /opt/tomcat/webapps/sspr/WEB-INF
+			CLASSPATH="lib/*"
+			${JAVA_HOME}/bin/java ${JAVA_OPTS} -cp "${CLASSPATH}" password.pwm.util.cli.MainClass $@
+		}
+		OP="unlock"
+		if [ "${1}" != "" ]; then shift ; OP="lock" ; fi
+		if [ "${OP}" == "lock" ]; then
+			ssprCommand configLock
+		else ssprCommand configUnlock ; fi
+		```
+	-	Start tomcat:  `systemctl start tomcat`
+	-	Go to [Configuration Editor](https://${ssprhost}/sspr/private/config/editor)
+	-	Navigate: `LDAP` - `LDAP Directories` - `Default` - `Connection`
+	-	Load certificates from server(s)
+	-	Save configuration changes
+	-	Stop tomcat:  `systemctl stop tomcat`
+	-	Revert `configIsEditable` to `false` in `/opt/microfocus/sspr/config/SSPRConfiguration.xml`
+	-	Lock the config: `sudo -H -u tomcat /usr/local/bin/sspr lock`
+	-	Start tomcat:  `systemctl start tomcat`
+
 
 # Deployment Instructions
 

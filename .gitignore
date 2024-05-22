@@ -1,3 +1,4 @@
+*.swp
 .vaultpw
 .DS_Store
 group_vars/cc_hosts/ansible_ssh_sudo_user.yml

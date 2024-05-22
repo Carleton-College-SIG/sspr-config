@@ -10,7 +10,7 @@
     - role: java11-corretto
       tags: corretto
     - tomcat
-    - sspr-classic
+#   - sspr-classic
     - ssl-classic
     - shibd-classic
     - httpd-classic
